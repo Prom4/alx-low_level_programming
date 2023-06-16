@@ -1,29 +1,38 @@
 #include "lists.h"
 
 /**
- * add_dnodeint - funct add new nodes at  begininning of  dbly,
- * linked listss
- * @head: pointr to pointes to head of the list.
- * @n: data to be addeds
+ * add_dnodeint - adding a new nodes at the beginning
+ * of a dlistint_t list
  *
- * Return: the address new element, or NULL if it failed.
+ * @head: heads of the lists
+ * @n: values of the element
+ * Return: the address of the new element
  */
-
 dlistint_t *add_dnodeint(dlistint_t **head, const int n)
 {
-	dlistint_t *new_nod;
+	dlistint_t *new;
+	dlistint_t *h;
 
-	new_nod = malloc(sizeof(dlistint_t));
-
-	if (new_nod == NULL)
+	new = malloc(sizeof(dlistint_t));
+	if (new == NULL)
 		return (NULL);
-	new_nod->n = n;
-	new_nod->next = *head;
-	new_nod->prev = NULL;
 
-	if ((*head) != NULL)
-		(*head)->prev = new_nod;
-	(*head) = new_nod;
+	new->n = n;
+	new->prev = NULL;
+	h = *head;
 
-	return (new_nod);
+	if (h != NULL)
+	{
+		while (h->prev != NULL)
+			h = h->prev;
+	}
+
+	new->next = h;
+
+	if (h != NULL)
+		h->prev = new;
+
+	*head = new;
+
+	return (new);
 }

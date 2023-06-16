@@ -1,20 +1,22 @@
 #include "lists.h"
 
 /**
- * free_dlistint - functs free a dbly,
- * linked list
- * @head: pointr head of list.
+ * free_dlistint - freeing a dlistint_t list
  *
- * Return: No retu
+ * @head: heasd of the lists
+ * Return: no returns
  */
-
 void free_dlistint(dlistint_t *head)
 {
-	while (head != NULL)
-	{
-		dlistint_t *next = head->next;
+	dlistint_t *tmp;
 
-		free(head);
-		head = next;
+	if (head != NULL)
+		while (head->prev != NULL)
+			head = head->prev;
+
+	while ((tmp = head) != NULL)
+	{
+		head = head->next;
+		free(tmp);
 	}
 }
